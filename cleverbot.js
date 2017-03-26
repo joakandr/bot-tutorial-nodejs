@@ -1,6 +1,6 @@
 var HTTPS = require('https');
 var cool = require('cool-ascii-faces');
-var Cleverbot = require('lib/cleverbot');
+var Cleverbot = require('./lib/cleverbot');
 
 var cleverBotID = process.env.CLEVERBOT_ID;
 var cleverKey = process.env.CLEVERKEY;
