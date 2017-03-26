@@ -21,8 +21,6 @@ function respond() {
 
 function postMessage(search_string) {
   var botResponse, options, body, botReq;
-
-  //botResponse = cool();
   
   strResponse = "https://www.google.com/#q="+search_string+"&*";
   botResponse = strResponse;
