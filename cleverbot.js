@@ -5,7 +5,7 @@ var Cleverbot = require('./lib/cleverbot');
 var cleverBotID = process.env.CLEVERBOT_ID;
 var cleverKey = process.env.CLEVERKEY;
 
-var cleverbot = new Cleverbot;
+cleverbot = new Cleverbot;
 cleverbot.configure({
     botapi: cleverKey
 });
