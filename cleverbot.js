@@ -23,8 +23,15 @@ function respond() {
         cleverbot.write(input, function (response) {
             console.log(response.output);
             postMessage(response.output);
-            this.res.end();
+
         });
+        this.res.end();
+    }
+    else
+    {
+    console.log("don't care");
+    this.res.writeHead(200);
+    this.res.end();
     }
 };
 
