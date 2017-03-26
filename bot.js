@@ -8,7 +8,7 @@ function respond() {
       botRegex = /^\/google\s[\s\S]+$/;
 
   if(request.text && botRegex.test(request.text)) {
-    var search_string = request.text.substring(8);
+    var search_string = request.text.substring(8).replace(' ', '+');
     this.res.writeHead(200);
     postMessage(search_string);
     this.res.end();
