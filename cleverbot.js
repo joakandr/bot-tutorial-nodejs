@@ -36,7 +36,7 @@ function postMessage(response) {
 
   body = {
     "bot_id" : cleverBotID,
-    "text" : botResponse;
+    "text" : botResponse
   };
 
   console.log('sending ' + botResponse + ' to ' + botID);
