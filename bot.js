@@ -23,7 +23,9 @@ function postMessage(search_string) {
   var botResponse, options, body, botReq;
 
   //botResponse = cool();
-  botResponse = "https://www.google.com/#q="+search_string+"&*";
+  
+  strResponse = "https://www.google.com/#q="+search_string+"&*";
+  botResponse = strResponse;
 
   options = {
     hostname: 'api.groupme.com',
