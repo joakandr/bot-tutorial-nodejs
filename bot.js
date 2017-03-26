@@ -5,11 +5,12 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/cool guy$/;
+      botRegex = /^\/google\s[\s\S]+$/;
 
   if(request.text && botRegex.test(request.text)) {
+    var search_string = request.text.substring(6);
     this.res.writeHead(200);
-    postMessage();
+    postMessage(search_string);
     this.res.end();
   } else {
     console.log("don't care");
@@ -18,10 +19,11 @@ function respond() {
   }
 }
 
-function postMessage() {
+function postMessage(search_string) {
   var botResponse, options, body, botReq;
 
-  botResponse = cool();
+  //botResponse = cool();
+  botResponse = "https://www.google.com/#q="+search_string+"&*";
 
   options = {
     hostname: 'api.groupme.com',
