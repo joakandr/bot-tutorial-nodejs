@@ -5,57 +5,60 @@ var Cleverbot = require('./lib/cleverbot');
 var cleverBotID = process.env.CLEVERBOT_ID;
 var cleverKey = process.env.CLEVERKEY;
 
-    cleverbot = new Cleverbot;
-    cleverbot.configure({botapi: cleverKey});
-    
-    function respond() {
-  var request = JSON.parse(this.req.chunks[0]);
+cleverbot = new Cleverbot;
+cleverbot.configure({
+    botapi: cleverKey
+});
 
-  if(request.text) {
-  
-  var input = encodeURIComponent(request.text);
-  
-    this.res.writeHead(200);
-    cleverbot.write(input, function (response) {
-       console.log(response.output);
-       postMessage(response.output);
-       this.res.end();
-    });
-}
+function respond() {
+    var request = JSON.parse(this.req.chunks[0]);
+
+    if (request.text) {
+
+        var input = encodeURIComponent(request.text);
+
+        this.res.writeHead(200);
+        cleverbot.write(input, function (response) {
+            console.log(response.output);
+            postMessage(response.output);
+            this.res.end();
+        });
+    }
+};
 
 function postMessage(response) {
-  var botResponse, options, body, botReq;
-  
-  botResponse = response;
-  
-  options = {
-    hostname: 'api.groupme.com',
-    path: '/v3/bots/post',
-    method: 'POST'
-  };
+    var botResponse, options, body, botReq;
 
-  body = {
-    "bot_id" : cleverBotID,
-    "text" : botResponse
-  };
+    botResponse = response;
 
-  console.log('sending ' + botResponse + ' to ' + botID);
+    options = {
+        hostname: 'api.groupme.com',
+        path: '/v3/bots/post',
+        method: 'POST'
+    };
 
-  botReq = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
-        //neat
-      } else {
-        console.log('rejecting bad status code ' + res.statusCode);
-      }
-  };
+    body = {
+        "bot_id": cleverBotID,
+        "text": botResponse
+    };
 
-  botReq.on('error', function(err) {
-    console.log('error posting message '  + JSON.stringify(err));
-  });
-  botReq.on('timeout', function(err) {
-    console.log('timeout posting message '  + JSON.stringify(err));
-  });
-  botReq.end(JSON.stringify(body));
+    console.log('sending ' + botResponse + ' to ' + botID);
+
+    botReq = HTTPS.request(options, function (res) {
+        if (res.statusCode == 202) {
+            //neat
+        } else {
+            console.log('rejecting bad status code ' + res.statusCode);
+        }
+    });
+
+    botReq.on('error', function (err) {
+        console.log('error posting message ' + JSON.stringify(err));
+    });
+    botReq.on('timeout', function (err) {
+        console.log('timeout posting message ' + JSON.stringify(err));
+    });
+    botReq.end(JSON.stringify(body));
 }
 
 
