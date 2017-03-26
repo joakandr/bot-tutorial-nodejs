@@ -3,12 +3,17 @@ var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
 
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /^\/google\s[\s\S]+$/;
 
   if(request.text && botRegex.test(request.text)) {
-    var search_string = request.text.substring(8).replace(' ', '+');
+    var search_string = request.text.substring(8).replaceALL(' ', '+');
     this.res.writeHead(200);
     postMessage(search_string);
     this.res.end();
