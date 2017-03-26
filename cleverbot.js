@@ -10,6 +10,8 @@ cleverbot.configure({
     botapi: cleverKey
 });
 
+console.log(cleverbot);
+
 function respond() {
     var request = JSON.parse(this.req.chunks[0]);
 
