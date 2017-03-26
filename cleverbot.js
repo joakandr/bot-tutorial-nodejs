@@ -9,7 +9,7 @@ var cleverKey = process.env.CLEVERKEY;
     cleverbot.configure({botapi: cleverKey});
     
     function respond() {
-  var request = JSON.parse(this.req.chunks[0]),
+  var request = JSON.parse(this.req.chunks[0]);
 
   if(request.text) {
   
