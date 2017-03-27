@@ -5,11 +5,6 @@ var Cleverbot = require('./lib/cleverbot');
 var cleverBotID = process.env.CLEVERBOT_ID;
 var cleverKey = process.env.CLEVERKEY;
 
-cleverbot = new Cleverbot;
-cleverbot.configure({
-    botapi: cleverKey
-});
-
 function respond() {
     var request = JSON.parse(this.req.chunks[0]);
 
@@ -17,6 +12,11 @@ function respond() {
     
     if (request.text && request.name != "Cleverbot") {
 
+        cleverbot = new Cleverbot;
+cleverbot.configure({
+    botapi: cleverKey
+});
+        
         var input = encodeURIComponent(request.text);
 
         //this.res.writeHead(200);
