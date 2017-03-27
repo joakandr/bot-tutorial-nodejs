@@ -8,7 +8,7 @@ bot         = require('./cleverbot.js');
 
 router = new director.http.Router({
   '/' : {
-    //post: bot.respond,
+    post: bot.respond,
     get: ping
   }
 });
