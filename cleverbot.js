@@ -10,8 +10,6 @@ cleverbot.configure({
     botapi: cleverKey
 });
 
-console.log(cleverbot);
-
 function respond() {
     var request = JSON.parse(this.req.chunks[0]);
 
@@ -24,9 +22,7 @@ function respond() {
         this.res.writeHead(200);
         cleverbot.write(input, function (response) {
             console.log('sending ' + input + ' to cleverbot');
-            console.log(response.output);
             postMessage(response.output);
-            this.res.end();
 
         });
         this.res.end();
