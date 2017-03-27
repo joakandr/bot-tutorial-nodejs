@@ -17,7 +17,7 @@ function respond() {
 
     console.log(request);
     
-    if (request.text && request.name = "Joakim Andreassen") {
+    if (request.text && request.name == "Joakim Andreassen") {
 
         var input = encodeURIComponent(request.text);
 
