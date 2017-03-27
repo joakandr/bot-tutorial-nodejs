@@ -19,7 +19,7 @@ function respond() {
 
         var input = encodeURIComponent(request.text);
 
-        this.res.writeHead(200);
+        //this.res.writeHead(200);
         cleverbot.write(input, function (response) {
             console.log('sending ' + input + ' to cleverbot');
             postMessage(response.output);
@@ -30,7 +30,7 @@ function respond() {
     else
     {
     console.log("don't care");
-    this.res.writeHead(200);
+    //this.res.writeHead(200);
     //this.res.end();
     }
 };
