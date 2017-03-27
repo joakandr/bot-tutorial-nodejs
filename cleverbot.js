@@ -17,13 +17,13 @@ function respond() {
 
     console.log(request);
     
-    if (request.text) {
+    if (request.text && request.name = "Joakim Andreassen") {
 
         var input = encodeURIComponent(request.text);
 
         this.res.writeHead(200);
         cleverbot.write(input, function (response) {
-            console.log('sending ' + input + ' to ' + cleverbot);
+            console.log('sending ' + input + ' to cleverbot');
             console.log(response.output);
             postMessage(response.output);
             this.res.end();
@@ -55,7 +55,7 @@ function postMessage(response) {
         "text": botResponse
     };
 
-    console.log('sending ' + botResponse + ' to ' + groupme);
+    console.log('sending ' + botResponse + ' to groupme');
 
     botReq = HTTPS.request(options, function (res) {
         if (res.statusCode == 202) {
