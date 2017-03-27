@@ -10,11 +10,6 @@ cleverbot.configure({
     botapi: cleverKey
     });
 
-function ProcessReply (data) {
-    if (data.error) console.log ('Error: ' + data.error);
-    else alert ('Reply: ' + data.output);
-}
-
 function respond() {
     var request = JSON.parse(this.req.chunks[0]);
 
