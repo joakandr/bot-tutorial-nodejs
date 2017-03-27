@@ -20,7 +20,7 @@ function respond() {
         var input = encodeURIComponent(request.text);
 
         //this.res.writeHead(200);
-        cleverbot.write(input, function (response) {
+        cleverbot.write(input, function () {
             console.log('sending ' + input + ' to cleverbot');
             postMessage(response.output);
 
