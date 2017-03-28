@@ -35,41 +35,42 @@ function respond() {
     } else if (pre_request == request) {
         pre_request = false;
     };
+}
 
-    function postMessage(response) {
-        var botResponse, options, body, botReq;
+function postMessage(response) {
+    var botResponse, options, body, botReq;
 
-        botResponse = response;
+    botResponse = response;
 
-        options = {
-            hostname: 'api.groupme.com',
-            path: '/v3/bots/post',
-            method: 'POST'
-        };
+    options = {
+        hostname: 'api.groupme.com',
+        path: '/v3/bots/post',
+        method: 'POST'
+    };
 
-        body = {
-            "bot_id": cleverBotID,
-            "text": botResponse
-        };
+    body = {
+        "bot_id": cleverBotID,
+        "text": botResponse
+    };
 
-        console.log('sending ' + botResponse + ' to groupme');
+    console.log('sending ' + botResponse + ' to groupme');
 
-        botReq = HTTPS.request(options, function (res) {
-            if (res.statusCode == 202) {
-                //neat
-            } else {
-                console.log('rejecting bad status code ' + res.statusCode);
-            }
-        });
+    botReq = HTTPS.request(options, function (res) {
+        if (res.statusCode == 202) {
+            //neat
+        } else {
+            console.log('rejecting bad status code ' + res.statusCode);
+        }
+    });
 
-        botReq.on('error', function (err) {
-            console.log('error posting message ' + JSON.stringify(err));
-        });
-        botReq.on('timeout', function (err) {
-            console.log('timeout posting message ' + JSON.stringify(err));
-        });
-        botReq.end(JSON.stringify(body));
-    }
+    botReq.on('error', function (err) {
+        console.log('error posting message ' + JSON.stringify(err));
+    });
+    botReq.on('timeout', function (err) {
+        console.log('timeout posting message ' + JSON.stringify(err));
+    });
+    botReq.end(JSON.stringify(body));
+}
 
 
-    exports.respond = respond;
+exports.respond = respond;
