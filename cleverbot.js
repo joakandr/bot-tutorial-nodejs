@@ -9,67 +9,67 @@ var cleverKey = process.env.CLEVERKEY;
 cleverbot = new Cleverbot;
 cleverbot.configure({
     botapi: cleverKey
-    });
+});
+
+var pre_request;
 
 function respond() {
     var request = JSON.parse(this.req.chunks[0]);
 
-    console.log(request);
-    
-    if (request.text && request.name != "Cleverbot") {
-        
-        var input = encodeURIComponent(request.text);
+    if (!pre_request) {
+        pre_request = request;
+        console.log(request);
 
-        //this.res.writeHead(200);
-        cleverbot.write(input, function (response) {
-            console.log('sending ' + input + ' to cleverbot');
-            postMessage(response.output);
+        if (request.text && request.name != "Cleverbot") {
 
-        });
-        //this.res.end();
-    }
-    else
-    {
-    console.log("don't care");
-    //this.res.writeHead(200);
-    //this.res.end();
-    }
-};
+            var input = encodeURIComponent(request.text);
 
-function postMessage(response) {
-    var botResponse, options, body, botReq;
+            cleverbot.write(input, function (response) {
+                console.log('sending ' + input + ' to cleverbot');
+                postMessage(response.output);
 
-    botResponse = response;
-
-    options = {
-        hostname: 'api.groupme.com',
-        path: '/v3/bots/post',
-        method: 'POST'
-    };
-
-    body = {
-        "bot_id": cleverBotID,
-        "text": botResponse
-    };
-
-    console.log('sending ' + botResponse + ' to groupme');
-
-    botReq = HTTPS.request(options, function (res) {
-        if (res.statusCode == 202) {
-            //neat
+            });
         } else {
-            console.log('rejecting bad status code ' + res.statusCode);
+            console.log("don't care");
         }
-    });
+    } else if (pre_request == request) {
+        pre_request = false;
+    };
 
-    botReq.on('error', function (err) {
-        console.log('error posting message ' + JSON.stringify(err));
-    });
-    botReq.on('timeout', function (err) {
-        console.log('timeout posting message ' + JSON.stringify(err));
-    });
-    botReq.end(JSON.stringify(body));
-}
+    function postMessage(response) {
+        var botResponse, options, body, botReq;
+
+        botResponse = response;
+
+        options = {
+            hostname: 'api.groupme.com',
+            path: '/v3/bots/post',
+            method: 'POST'
+        };
+
+        body = {
+            "bot_id": cleverBotID,
+            "text": botResponse
+        };
+
+        console.log('sending ' + botResponse + ' to groupme');
+
+        botReq = HTTPS.request(options, function (res) {
+            if (res.statusCode == 202) {
+                //neat
+            } else {
+                console.log('rejecting bad status code ' + res.statusCode);
+            }
+        });
+
+        botReq.on('error', function (err) {
+            console.log('error posting message ' + JSON.stringify(err));
+        });
+        botReq.on('timeout', function (err) {
+            console.log('timeout posting message ' + JSON.stringify(err));
+        });
+        botReq.end(JSON.stringify(body));
+    }
 
 
-exports.respond = respond;
+    exports.respond = respond;
