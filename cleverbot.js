@@ -11,30 +11,23 @@ cleverbot.configure({
     botapi: cleverKey
 });
 
-var pre_request;
-
 function respond() {
     var request = JSON.parse(this.req.chunks[0]);
 
-    if (!pre_request) {
-        pre_request = request;
-        console.log(request);
+    console.log(request);
 
-        if (request.text && request.name != "Cleverbot") {
+    if (request.text && request.name != "Cleverbot") {
 
-            var input = encodeURIComponent(request.text);
+        var input = encodeURIComponent(request.text);
 
-            cleverbot.write(input, function (response) {
-                console.log('sending ' + input + ' to cleverbot');
-                postMessage(response.output);
+        cleverbot.write(input, function (response) {
+            console.log('sending ' + input + ' to cleverbot');
+            postMessage(response.output);
 
-            });
-        } else {
-            console.log("don't care");
-        }
-    } else if (pre_request == request) {
-        pre_request = false;
-    };
+        });
+    } else {
+        console.log("don't care");
+    }
 }
 
 function postMessage(response) {
